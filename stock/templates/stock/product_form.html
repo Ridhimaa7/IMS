@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+{% load stock_extras %}
+{% block title %}
+  {% if product %}Edit {{ product.name }}{% else %}Add New Product{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="card mb-4">
+  <div class="card-header">
+    {% if product %}Edit Product{% else %}Add New Product{% endif %}
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="id_name" class="form-label">Name</label>
+        <input type="text" name="name" id="id_name"
+               class="form-control"
+               value="{{ product.name|default_if_none:'' }}">
+      </div>
+        <div class="mb-3">
+          <label for="id_category" class="form-label">Category</label>
+          <select name="category" id="id_category" class="form-control">
+          <option value="">— None —</option>
+          {% for cat in categories %}
+          <option value="{{ cat.id }}"
+            {% if product and product.category and product.category.id == cat.id %}
+              selected
+            {% endif %}
+          >{{ cat.name }}</option>
+          {% endfor %}
+          </select>
+        </div>
+
+      <div class="mb-3">
+        <label for="id_description" class="form-label">Description</label>
+        <textarea name="description" id="id_description"
+                  class="form-control" rows="3">{{ product.description|default_if_none:'' }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="id_price" class="form-label">Price (₹)</label>
+        <input type="number" step="0.01" name="price" id="id_price"
+               class="form-control"
+               value="{{ product.price|default_if_none:'' }}">
+      </div>
+      <div class="mb-3">
+        <label for="id_quantity" class="form-label">Quantity</label>
+        <input type="number" name="quantity" id="id_quantity"
+               class="form-control"
+               value="{{ product.quantity|default_if_none:'' }}">
+      </div>
+      <button type="submit" class="btn btn-primary">
+        {% if product %}Update{% else %}Create{% endif %}
+      </button>
+      <a href="{% url 'product-list' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

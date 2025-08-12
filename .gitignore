@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django stuff
+*.log
+staticfiles/
+media/
+
+# Envs
+.env
+.env.*
+venv/
+.venv/
+
+# VSCode / IDE
+.vscode/
+.idea/
+
+# Database / migrations caches
+*.sqlite3
+*/migrations/**/__pycache__/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid
+.coverage
+htmlcov/

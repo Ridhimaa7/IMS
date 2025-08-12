@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Inventory Dashboard</h1>
+  <div class="row g-4 mt-3">
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total Products</h5>
+          <p class="display-4">{{ total_products }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total Inventory Value</h5>
+          <p class="display-4">₹{{ total_value|floatformat:2 }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Low Stock Items</h5>
+          {% if low_stock %}
+            <ul class="list-group">
+              {% for p in low_stock %}
+                <li class="list-group-item">
+                  {{ p.name }} (Qty: {{ p.quantity }})
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-success">All stocks are healthy!</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

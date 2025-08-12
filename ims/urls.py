@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
@@ -34,4 +35,6 @@ urlpatterns = [
 
     # Your app
     path('products/', include('stock.urls')),
+    path('', RedirectView.as_view(url='/products/', permanent=False)),  # <— home -> productsdocker compose up --build -d   # rebuild image with the new urls
+
 ]
